@@ -54,13 +54,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!--1. Display Errors if any exists 
 	2. Display Registration form (sticky):  Username, Password, Question, and Answer -->
 <body>
-	<?php include 'include/header.php'; ?>
+	<div class="include"><?php include 'include/header.php'; ?></div>
 	
-	<h2>Register</h2>
 	
 	<?php include('include/messages.php'); ?>
 		
-	<div>
+<div>
+		<div class="container">
+  		<div class="lin-container">
+    			<h1 id="header">Website</h1>
+
+
 		<form action="register.php" method="post">
 			<input type="text" name="username" id="username" placeholder="Pick a username" value="<?php echo $username; ?>" />
 			<br/>
@@ -71,10 +75,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<input type="text" name="registrationcode" id="registrationcode" placeholder="Enter the registration code provided by your instructor" size="35" value="<?php echo $registrationcode; ?>" />
 			<br/>
 			<input type="submit" value="Register" />
-		</form>
+		</form>					
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+		</div>
 	</div>
-	<a href="login.php">Already a member?</a>
-	<?php include 'include/footer.php'; ?>
+
+	<div class="sign-up container">
+		Already a member?<a href="login.php">Login</a>
+	</div>
+	
+</div>
+	
+	<div class="include"><?php include 'include/footer.php'; ?></div>
 	<script src="js/site.js"></script>
+
+
 </body>
 </html>

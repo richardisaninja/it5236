@@ -6,7 +6,13 @@ div.nav {
 	float: right;
 	padding: 20px;
 }
+.submit-photo{
+	padding: 20px;
 
+}
+div.nav, .submit-photo{
+	display: inline-block;
+}
 ul.things {
 	padding-left: 10px;
 }
@@ -77,7 +83,7 @@ ul.comments li {
 }
 
 div form input[type="text"], div form input[type="password"], div form textarea {
-	margin-top: 10px;
+
 }
 
 input[type="submit"] {
@@ -121,4 +127,220 @@ div.message {
 
 div.newattachmenttype {
 	background-color: #ccffcc;
+}
+
+/*My written code*/
+/*For the login page*/
+body{
+	font-family: "Segoe UI";
+	  background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+	background-repeat: no-repeat;
+	padding-bottom: 20%;
+  }
+.include{
+	display: none;
+}
+  .container{
+	border: 1px solid white;
+	background-color: white;
+	border-radius: 5px;
+	margin-left: 38%;
+	margin-right: 40%;
+	margin-top: 10%;
+	width: 350px;
+	height: 380px;
+  }
+  .lin-container{
+	text-align: center;
+	margin-top: 3%;
+  }
+  #header{
+	margin-left: 3%;
+  }
+  input{
+  margin-left: 50px;
+  display: block;
+  padding: 5px;
+  border: 1px solid grey;
+   border-radius: 3px;
+  }
+  input[type=submit], input[type=text], input[type=password]{
+	width: 250px;
+	color: black;
+	border: .5px solid #DCDCDC;
+	background-color: #F0F8FF;
+  }
+input[type=submit]{
+	width: 250px;
+	background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+	color: white;
+	border: none;
+
+}
+  .sign-up{
+	text-align: center;
+	margin-top: 20px;
+	padding: 20px 0;
+	height: 30px;
+  }
+a{
+	text-decoration: none;
+	color: blue;
+}
+
+@media screen and (max-width: 450px){
+ .container{
+    float: left;
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: -4.5%;
+    width: 100%;
+    border-radius: 0;
+
+  }
+body{
+overflow-x: hidden;
+background-image: none;
+  }
+}
+
+/*menu image overlay*/
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+/*hide open and close button for desktop */
+@media only screen and (min-width: 768px){
+	#open-btn{
+		display: none;
+	}
+	.closebtn{
+		display: none;
+	}
+	.overlay-content{
+		margin-top: 30px;
+	}
+	.overlay-content {
+		margin-right: 150px;
+		margin-bottom: 20px;
+	}
+	.overlay-content a {
+		color: black;
+		margin-right: 40px;
+	}
+	#home{
+		margin-top: -.5%;
+		padding: 40px;
+		margin-left: 5%;
+		color: white;
+		font-size: 25px;
+		position: absolute;
+	}
+	#submitPic{
+		border: 1px solid white;
+		border-radius: 10px;
+		padding: 10px;
+	}
+	#submitPic:hover{
+	}
+	.circle{
+		font-size: 70px;
+		border-radius: 1000px;
+		color: white;
+		float: right;
+		height: 50px;
+		width: 50px;
+		margin-top: 24%;
+		border: 3px solid white;
+		text-align: center;
+		line-height: 35px;
+		margin-right: -12%;;
+	}
+	.text{
+		color: white;
+		padding-top: 37%;
+		padding-left: 7%;
+		line-height: 1.6;
+	}
+}
+@media only screen and (max-width: 768px) {
+	.overlay {
+	    height: 100%;
+	    width: 0;
+	    position: fixed;
+	    z-index: 1;
+	    top: 0;
+	    right: 0;
+	    background-color: rgb(0,0,0);
+	    background-color: rgba(0,0,0, 0.9);
+	    overflow-x: hidden;
+	    transition: 0.5s;
+	}
+
+	.overlay-content {
+	    position: relative;
+	    top: 15%;
+	    width: 100%;
+	    text-align: center;
+	    margin-top: 30px;
+	}
+
+	.overlay a {
+	    padding: 8px;
+	    text-decoration: none;
+	    font-size: 36px;
+	    color: #818181;
+	    display: block;
+	    transition: 0.3s;
+	}
+
+	.overlay a:hover, .overlay a:focus {
+	    color: #f1f1f1;
+	}
+
+	.overlay .closebtn {
+	    position: absolute;
+	    top: 20px;
+	    right: 45px;
+	    font-size: 60px;
+	}
+	.open-btn{
+		color: white;
+	}
+	.text{
+		display: none;
+	}
+
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+/*responsive grid*/
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+[class*="col-"] {
+    float: left;
+    padding: 5px;
+}
+img{
+	width: 100%;
+	border-radius: 5px;
 }

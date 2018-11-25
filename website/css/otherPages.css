@@ -1,0 +1,141 @@
+body{
+	background-image: none;
+	margin: 0;
+}
+.body{
+	background-image: none;
+	margin-right: 15%;
+	margin-left: 15%;
+}
+*{
+	box-sizing: border-box;
+}
+div.search{
+	float: right;
+}
+.newthing{
+	float: right;
+	margin-left: 25%;
+	margin-top: 10%;
+	position: absolute;
+	background-color: white;
+	padding: 10px;
+	padding-top: 30px;
+	padding-right: 50px;
+	border-radius: 5px;
+	z-index: 1;
+
+}
+.addimage{
+	animation: addimage 7ms ease-in forwards;
+}
+#label{
+	margin-left: 50px;
+}
+@keyframes addimage{
+    0%   {background-color: white;}
+    100% {background-color: 	#282828;
+					opacity: .5}
+}
+.opacity{
+	opacity: 1;
+}
+div.search{
+	display: block;
+}
+
+.container-ov{
+  position: relative;
+}
+/*for overlay*/
+.overlay-ov{
+  position: absolute;
+  bottom: 1%;
+  height: 99%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: black;
+}
+.container-ov:hover .overlay-ov {
+  opacity: .5;
+}
+.text1 {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/*Index Page*/
+.background{
+	background-image: url("https://images.unsplash.com/photo-1541060347332-57ad1362e09e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a43cd9bfdfc2a8211f23912f3edc2c3a&auto=format&fit=crop&w=1650&q=80");
+	height: 100vh;
+	width: 100%;
+	background-position: center;
+
+}
+
+
+/*modal content (image) */
+.modal-content{
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 500px;
+}
+/*caption of modal image */
+#caption{
+
+}
+/*add animation*/
+.modal-content, #caption{
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+/*The close Button*/
+.close{
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.close:hover,
+.close:focus{
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+@media (max-width: 640px) {
+  .close{
+    position: absolute;
+      z-index: 1;
+      margin-top: 3%;
+  }
+}
+
+@media (max-width: 480px) {
+  .close{
+    position: absolute;
+      z-index: 1;
+      margin-top: 3%;
+}
+}

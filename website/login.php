@@ -9,6 +9,8 @@ $app->setup();
 
 // Declare a set of variables to hold the username and password for the user
 $username = "";
+$email = "";
+$userid = "";
 $password = "";
 
 // Declare an empty array of error messages
@@ -17,8 +19,9 @@ $errors = array();
 // If someone has clicked their email validation link, then process the request
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
+
 	if (isset($_GET['id'])) {
-		
+
 		$success = $app->processEmailValidation($_GET['id'], $errors);
 		if ($success) {
 			$message = "Email address validated. You may login.";
@@ -34,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Pull the username and password from the <form> POST
 	$username = $_POST['username'];
 	$password = $_POST['password'];
+
 
 	// Attempt to login the user and capture the result flag
 	$result = $app->login($username, $password, $errors);
@@ -59,39 +63,66 @@ if (isset($_GET['register']) && $_GET['register']== 'success') {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>russellthackston.me</title>
+	<title>Richard's Project</title>
 	<meta name="description" content="Russell Thackston's personal website for IT 5233">
 	<meta name="author" content="Russell Thackston">
 	<link rel="stylesheet" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<!--1. Display Errors if any exists 
+<!--1. Display Errors if any exists
 	2. Display Login form (sticky):  Username and Password -->
 
 <body>
-	<?php include 'include/header.php'; ?>
+	<div class="include"><?php include 'include/header.php'; ?></div>
 
-	<h2>Login</h2>
 
 	<?php include('include/messages.php'); ?>
-	
-	<div>
-		<form method="post" action="login.php">
-			
-			<input type="text" name="username" id="username" placeholder="Username" value="<?php echo $username; ?>" />
-			<br/>
 
-			<input type="password" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" />
-			<br/>
 
-			<input type="submit" value="Login" name="login" />
-		</form>
+	<div class="container">
+  		<div class="lin-container">
+    			<h1 id="header">Website</h1>
+
+					<form method="post" id="usernameForm" action="login.php">
+
+							<input type="text" name="username" id="usernameField" placeholder="Username" value="<?php echo $username; ?>" />
+							<br/>
+
+							<input type="password" name="password" id="password" placeholder="Password" value="<?php echo $password; ?>" />
+							<br/>
+
+							<input type="submit" value="Login" name="login" />
+
+							<input type="checkbox" name="local" id="saveLocal">
+
+							<input type="checkbox" id="saveSession" name="session" value="session" />
+
+
+
+					</form>
+					<br>
+					<br>
+					<a href="reset.php">Forgot your password?</a>
+					<br>
+					<br>
+					<br>
+		</div>
 	</div>
-	<a href="register.php">Need to create an account?</a>
-	<br/>
-	<a href="reset.php">Forgot your password?</a>
-	<?php include 'include/footer.php'; ?>
+
+	<div class="sign-up container">
+		Don't have an account?<a href="register.php"> Register</a>
+
+	</div>
+
+
+
+
+
+
+	<!-- <?php include 'include/footer.php'; ?> -->
 	<script src="js/site.js"></script>
+	<script src="scripts.js"></script>
+
 </body>
 </html>

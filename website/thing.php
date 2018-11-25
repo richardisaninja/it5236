@@ -18,27 +18,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 	// Get the topic id from the URL
 	$thingid = $_GET['thingid'];
-	
+
 	// Attempt to obtain the topic
 	$thing = $app->getThing($thingid, $errors);
-	
+
 	// If there were no errors getting the topic, try to get the comments
 	if (sizeof($errors) == 0) {
-	
+
 		// Attempt to obtain the comments for this topic
 		$thing = $app->getThing($thingid, $errors);
-		
+
 		// If the thing loaded successfully, load the associated comments
 		if (isset($thing)) {
 			$comments = $app->getComments($thing['thingid'], $errors);
 		}
-	
+
 	} else {
 		// Redirect the user to the things page on error
 		header("Location: list.php?error=nothing");
 		exit();
 	}
-	
+
 	// Check for url flag indicating that a new comment was created.
 	if (isset($_GET["newcomment"]) && $_GET["newcomment"] == "success") {
 		$message = "New comment successfully created.";
@@ -46,33 +46,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 // If someone is attempting to create a new comment, process their request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if($_POST['action'] == 'comment'){
+				// Pull the comment text from the <form> POST
+				$text = $_POST['comment'];
 
-	// Pull the comment text from the <form> POST
-	$text = $_POST['comment'];
+				// Pull the thing ID from the form
+				$thingid = $_POST['thingid'];
+				$attachment = $_FILES['attachment'];
 
-	// Pull the thing ID from the form
-	$thingid = $_POST['thingid'];
-	$attachment = $_FILES['attachment'];
+				// Get the details of the thing from the database
+				$thing = $app->getThing($thingid, $errors);
 
-	// Get the details of the thing from the database
-	$thing = $app->getThing($thingid, $errors);
 
-	// Attempt to create the new comment and capture the result flag
-	$result = $app->addComment($text, $thingid, $attachment, $errors);
 
-	// Check to see if the new comment attempt succeeded
-	if ($result == TRUE) {
 
-		// Redirect the user to the login page on success
-	    header("Location: thing.php?newcomment=success&thingid=" . $thingid);
-		exit();
+				// Attempt to create the new comment and capture the result flag
+				$result = $app->addComment($text, $thingid, $attachment, $errors);
 
-	} else {
-		if (isset($thing)) {
-			$comments = $app->getComments($thing['thingid'], $errors);
+				// Check to see if the new comment attempt succeeded
+				if ($result == TRUE) {
+
+					// Redirect the user to the login page on success
+				    header("Location: thing.php?newcomment=success&thingid=" . $thingid);
+					exit();
+
+				} else {
+					if (isset($thing)) {
+						$comments = $app->getComments($thing['thingid'], $errors);
+					}
+				}
+			}
+		if($_POST['action'] == 'delete'){
+			// Pull the thing ID from the form
+			$thingid = $_POST['thingid'];
+
+			//request deleteThing function
+			$app->deleteThing($thingid ,$errors);
+
 		}
-	}
-
 }
 
 ?>
@@ -85,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<meta name="description" content="Russell Thackston's personal website for IT 5233">
 	<meta name="author" content="Russell Thackston">
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/otherPages.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -92,18 +104,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<div class="breadcrumbs">
 		<a href="list.php">Back to things list</a>
 	</div>
-	
+
 	<?php include('include/messages.php'); ?>
-	
+
 	<div class="topiccontainer">
 		<p class="topictitle"><?php echo $thing['thingname']; ?></p>
 		<p class="topictagline"><?php echo $thing['username']; ?> on <?php echo $thing['thingcreated']; ?></p>
 		<?php if ($thing['filename'] != NULL) { ?>
-			<p class="topicattachment"><a href="attachments/<?php echo $thing['thingattachmentid'] . '-' . $thing['filename']; ?>"><?php echo $thing['filename']; ?></a></p>
+			<p class="topicattachment"><img src="attachments/<?php echo $thing['thingattachmentid'] . '-' . $thing['filename']; ?>"><?php echo $thing['filename']; ?></p>
 		<?php } else { ?>
 			<p class="topicattachment">No attachment</p>
 		<?php } ?>
 	</div>
+
+	<?php foreach ($things as $thing) { ?>
+		<a href="thing.php?thingid=<?php echo $thing['thingid']; ?>"><?php echo $thing['thingname']; ?></a> <!--Wont get filename why?-->
+		<span class="author"><?php echo $thing['thingcreated']. "it"; ?></span>
+	<?php } ?>
+
+
 	<ul class="comments">
 		<?php foreach ($comments as $comment) { ?>
 		<li>
@@ -118,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</li>
 		<?php } ?>
 	</ul>
+
 	<div class="newcomment">
 		<form enctype="multipart/form-data" method="post" action="thing.php">
 			<textarea name="comment" id="comment" rows="4" cols="50" placeholder="Add a comment"></textarea>
@@ -126,9 +146,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<input id="attachment" name="attachment" type="file">
 			<br/>
 			<input type="hidden" name="thingid" value="<?php echo $thingid; ?>" />
+				<input type="hidden" name="action" value="comment" />
 			<input type="submit" name="start" value="Add comment" />
 		</form>
 	</div>
+
+	<div class="deleteThing">
+		<form enctype="multipart/form-data" method="POST" action="thing.php">
+			<br/>
+			<label for="delete">delete</label>
+			<input id="delete" name="delete" type="checkbox">
+			<br/>
+			<input type="hidden" name="thingid" value="<?php echo $thingid; ?>" />
+				<input type="hidden" name="action" value="delete" />
+			<input type="submit" name="delete" value="delete thing" />
+		</form>
+	</div>
+
+	<?php
+
+	 ?>
+
+
+
+
+
 	<?php include 'include/footer.php'; ?>
 	<script src="js/site.js"></script>
 </body>
